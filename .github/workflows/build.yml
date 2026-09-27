@@ -23,7 +23,7 @@ jobs:
           pip install --upgrade pip
           pip install buildozer cython
 
-      -     - name: Build APK with Buildozer
+          - name: Build APK with Buildozer
       run: |
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
         yes | buildozer android debug
