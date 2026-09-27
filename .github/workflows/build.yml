@@ -27,13 +27,13 @@ jobs:
           pip install --upgrade pip setuptools
           pip install "cython<3.0.0" buildozer Kivy
 
-      - name: Accept Android Licenses & Build
+      - name: Build APK with Buildozer
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          yes | buildozer android debug
+          buildozer android debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
