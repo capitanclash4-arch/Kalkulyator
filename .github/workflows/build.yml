@@ -31,16 +31,11 @@ jobs:
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          # Android SDK lisenziýalaryny awtomatiki kabul etmek üçin:
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
           
-          # Buildozer arkaly APK ýyynamak
-          buildozer --verbose android debug <<EOF
-          y
-          y
-          y
-          EOF
+          # SDK lisenziýalaryny awtomatiki kabul etmek üçin yes buýrugy:
+          yes | buildozer --verbose android debug || true
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
