@@ -27,15 +27,21 @@ jobs:
           pip install --upgrade pip setuptools
           pip install "cython<3.0.0" buildozer Kivy
 
+      - name: Accept Android SDK Licenses
+        run: |
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+          echo -e "\n24333f8a637b814e193511870d7d326ed052e006" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
+          echo -e "\nd937142e06d96e5787e73d231d085387a922d607" > ~/.buildozer/android/platform/android-sdk/licenses/android-googletv-license
+          echo -e "\n33b6a2b6462511154a35204b98a71f19d40f7466" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-arm-dbt-license
+
       - name: Build APK with Buildozer
         env:
           JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
         run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # Lisenziýalary awtomatiki tassyklamak üçin y| kirizýäris
-          yes | buildozer android debug || true
-          yes | buildozer android debug
+          buildozer android debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
