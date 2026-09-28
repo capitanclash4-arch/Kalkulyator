@@ -33,10 +33,14 @@ jobs:
         run: |
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          buildozer android debug
+          # Lisenziýalary awtomatiki tassyklamak üçin y| kirizýäris
+          yes | buildozer android debug || true
+          yes | buildozer android debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Kalkulyator-APK
-          path: bin/*.apk
+          path: |
+            bin/*.apk
+            .buildozer/android/platform/build-*/dists/*/build/outputs/apk/*/*/*.apk
